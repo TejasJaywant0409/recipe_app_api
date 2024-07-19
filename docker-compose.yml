@@ -1,0 +1,14 @@
+#version: "3.9" # version of docker-compose
+
+services:
+  app:     # name of service
+    build: 
+      context: . # build the docker file in current directory (.)
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000" # maps local machine port to the the docker container
+    volumes: # way of mapping directory from system into docker container
+      - "./app:/app"
+    command: > # command that is used to run the service
+      sh -c "python manage.py runserver 0.0.0.0:8000"
